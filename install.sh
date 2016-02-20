@@ -31,18 +31,17 @@ echo "system>   4) Mac x64(64-bit system)"
 echo "system>   5) Exit ImagicalMine installation"
 echo "system> Number (e.g. 1): "
 select yn in "1" "2" "3" "4" "5"; do
- case $a in 
+ case "$a" in 
 	1 ) z="PHP_7.0.2_x86_Linux.tar.gz";;
 	2 ) z="PHP_7.0.2_x86-64_Linux.tar.gz";;
         3 ) z="PHP_7.0.2_x86_MacOS.tar.gz";;
         4 ) z="PHP_7.0.2_x86-64_MacOS.tar.gz";;
-        5 ) exit;;
+        5 ) exit 1;;
 #  	 !(1) ) z="x";;
 #        !(2) ) z="x";;
 #        !(3) ) z="x";;
 #        !(4) ) z="x";;
  esac
-done
 
 l="install_log/log"
 le="install_log/log_errors"
