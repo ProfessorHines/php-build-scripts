@@ -11,7 +11,8 @@
 # Before you start doing anything, read the license for more detail into what you are allowed to do and not do.                             
                                  
 clear
-echo <<EOF
+cat << "EOF"
+
   _                       _           _ __  __ _             
  (_)                     (_)         | |  \/  (_)            
   _ _ __ ___   __ _  __ _ _  ___ __ _| | \  / |_ _ __   ___  
