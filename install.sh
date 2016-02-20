@@ -8,8 +8,9 @@
 # |_|  |_|/_/    \_\|______||_|(_)
 # 
 # This file is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
-# Before you start doing anything, read the license for more detail into what you are allowed to do and not do.                             
-                                 
+# Before you start doing anything, read the license for more detail into what you are allowed to do and not do.
+while :
+do
 clear
 cat << "EOF"
 
@@ -31,6 +32,7 @@ echo "system>   3) Mac x86(32-bit system)"
 echo "system>   4) Mac x64(64-bit system)"
 echo "system>   5) Exit ImagicalMine installation"
 read -e -p "system> Number (e.g. 1): " a
+read -e -p "system> Number (e.g. 1): " a </dev/tty
  case "$a" in 
 	1 ) z="PHP_7.0.2_x86_Linux.tar.gz";;
 	2 ) z="PHP_7.0.2_x86-64_Linux.tar.gz";;
@@ -78,3 +80,6 @@ else
 	echo "system> ImagicalMine installation completed! Run ./start.sh (or ./st*) to start ImagicalMine."
         shopt -u extglob
 fi
+exit 0
+done
+
