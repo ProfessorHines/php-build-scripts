@@ -20,7 +20,7 @@ echo <<EOF
  |_|_| |_| |_|\__,_|\__, |_|\___\__,_|_|_|  |_|_|_| |_|\___| 
                      __/ |                                   
                     |___/     
-EOF   
+EOF
 
 shopt -s extglob
 echo "system> Choose which PHP binary you want to install"
