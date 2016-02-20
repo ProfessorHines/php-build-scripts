@@ -37,11 +37,7 @@ read -e -p "system> Number (e.g. 1): " a
         3 ) z="PHP_7.0.2_x86_MacOS.tar.gz";;
         4 ) z="PHP_7.0.2_x86-64_MacOS.tar.gz";;
         5 ) exit 1;;
-  	!(1) ) z="x";;
-        !(2) ) z="x";;
-        !(3) ) z="x";;
-        !(4) ) z="x";;
-        !(5) ) z="x";;
+        * ) echo "Input was wrong, choose the number of the required binary"; exit 1;;
  esac
 
 l="install_log/log"
