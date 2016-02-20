@@ -11,14 +11,16 @@
 # Before you start doing anything, read the license for more detail into what you are allowed to do and not do.                             
                                  
 clear
- echo "  _                       _           _ __  __ _             "
- echo " (_)                     (_)         | |  \\/  (_)            "
- echo "  _ _ __ ___   __ _  __ _ _  ___ __ _| | \\  / |_ _ __   ___  "
- echo " | | '_ \` _ \\ / _\` |/ _\` | |/ __/ _\` | | |\\/| | | '_ \\ / _ \\ "
- echo " | | | | | | | (_| | (_| | | (_| (_| | | |  | | | | | |  __/ "
- echo " |_|_| |_| |_|\\__,_|\\__, |_|\\___\\__,_|_|_|  |_|_|_| |_|\\___| "
- echo "                     __/ |                                   "
- echo "                    |___/                                    "
+cat << EOF
+  _                       _           _ __  __ _             
+ (_)                     (_)         | |  \/  (_)            
+  _ _ __ ___   __ _  __ _ _  ___ __ _| | \  / |_ _ __   ___  
+ | | '_ ` _ \ / _` |/ _` | |/ __/ _` | | |\/| | | '_ \ / _ \ 
+ | | | | | | | (_| | (_| | | (_| (_| | | |  | | | | | |  __/ 
+ |_|_| |_| |_|\__,_|\__, |_|\___\__,_|_|_|  |_|_|_| |_|\___| 
+                     __/ |                                   
+                    |___/     
+EOF      
 
 shopt -s extglob
 echo "system> Choose which PHP binary you want to install"
