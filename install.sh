@@ -11,7 +11,7 @@
 # Before you start doing anything, read the license for more detail into what you are allowed to do and not do.                             
                                  
 clear
-cat << EOF
+echo <<HERE
   _                       _           _ __  __ _             
  (_)                     (_)         | |  \/  (_)            
   _ _ __ ___   __ _  __ _ _  ___ __ _| | \  / |_ _ __   ___  
@@ -20,7 +20,7 @@ cat << EOF
  |_|_| |_| |_|\__,_|\__, |_|\___\__,_|_|_|  |_|_|_| |_|\___| 
                      __/ |                                   
                     |___/     
-EOF      
+HERE     
 
 shopt -s extglob
 echo "system> Choose which PHP binary you want to install"
@@ -28,7 +28,7 @@ echo "system>   1) Linux x86(32-bit system)"
 echo "system>   2) Linux x64(64-bit system)"
 echo "system>   3) Mac x86(32-bit system)"
 echo "system>   4) Mac x64(64-bit system)"
-echo -n "system> Number (e.g. 1): "
+read -p "system> Number (e.g. 1): "
 sleep 10
 read a
 
