@@ -30,7 +30,9 @@ echo "system>   1) Linux x86(32-bit system)"
 echo "system>   2) Linux x64(64-bit system)"
 echo "system>   3) Mac x86(32-bit system)"
 echo "system>   4) Mac x64(64-bit system)"
-echo "system>   5) Exit ImagicalMine installation"
+echo "system>   5) ARM v6"
+echo "system>   6) ARM v7" 
+echo "system>   7) Exit ImagicalMine installation"
 read -e -p "system> Number (e.g. 1): " a
 read -e -p "system> Number (e.g. 1): " a </dev/tty
  case "$a" in 
@@ -38,7 +40,9 @@ read -e -p "system> Number (e.g. 1): " a </dev/tty
 	2 ) z="PHP_7.0.2_x86-64_Linux.tar.gz";;
         3 ) z="PHP_7.0.2_x86_MacOS.tar.gz";;
         4 ) z="PHP_7.0.2_x86-64_MacOS.tar.gz";;
-        5 ) exit 1;;
+        5 ) z="PHP_7.0.0RC3_ARMv6_Android.tar.gz";;
+        6 ) z="PHP_7.0.0RC3_ARMv7_Android.tar.gz";;
+        7 ) exit 1;;
         * ) echo "Input was wrong, choose the number of the required binary"; exit 1;;
  esac
 
@@ -82,4 +86,3 @@ else
 fi
 exit 0
 done
-
