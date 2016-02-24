@@ -60,11 +60,12 @@ else
 read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y/n):" c
 read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y/n):" c </dev/tty
 #		read c
-		echo '# If you want to enable looping, useful for auto-restarting server when it stops or crashes, change "no" to "yes" in DO_LOOP.' > start.sh
 		if [ "$c" == "y" ]||[ "$c" == "Y" ]; then
-			echo 'DO_LOOP="yes"' >> start.sh
+#			echo 'DO_LOOP="yes"' >> start.sh
+                sed -i 's/DO_LOOP="no"/DO_LOOP="yes"/' start.sh
 		else
-			echo 'DO_LOOP="no"' >> start.sh
+#			echo 'DO_LOOP="no"' >> start.sh
+                sed -i 's/DO_LOOP="yes"/DO_LOOP="no"/' start.sh
 		fi
 
         echo >> start.sh
