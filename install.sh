@@ -57,6 +57,16 @@ if [ "$z" == "x" ];then
 	echo "error> An unexpected error occurred - either a 10 second timeout or an unknown selection. Restart the script, and then choose again."
 	exit 1
 else
+echo -n "Do you want to enable auto-restarting server when stop/crash? (Y/n):"
+		read c
+		echo '# If you want to do loop (auto-restarting server when stop/crash), change "no" to "yes"' > start.sh
+		if [ $c == "y" ]||[ $c == "Y" ]; then
+			echo 'DO_LOOP="yes"' >> start.sh
+		else
+			echo 'DO_LOOP="no"' >> start.sh
+		fi
+
+        echo >> start.sh
 	mkdir install_log
 	echo "system> Installing ImagicalMine..."
 	wget https://github.com/ImagicalMine/ImagicalMine/archive/master.zip >>./$w 2>>./$w
