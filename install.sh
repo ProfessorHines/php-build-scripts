@@ -59,8 +59,8 @@ if [ "$z" == "x" ];then
 else
 echo -n "Do you want to enable auto-restarting server when stop/crash? (Y/n):"
 		read c
-		echo '# If you want to do loop (auto-restarting server when stop/crash), change "no" to "yes"' > start.sh
-		if [ $c == "y" ]||[ $c == "Y" ]; then
+		echo '# If you want to enable looping, useful for auto-restarting server when it stops or crashes, change "no" to "yes" in DO_LOOP.' > start.sh
+		if [ "$c" == "y" ]||[ "$c" == "Y" ]; then
 			echo 'DO_LOOP="yes"' >> start.sh
 		else
 			echo 'DO_LOOP="no"' >> start.sh
