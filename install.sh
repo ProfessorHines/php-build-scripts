@@ -79,9 +79,9 @@ if [ "$z" == "RPI2" ];then
         wget --no-check-certificate https://doc-0k-3o-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/934keuclvb2ivtvbjha3g5g6hcp7bmcl/1456344000000/05545830570625343823/*/0B60O0ROCfeCmVW1idWx1WFY5RXM?e=download >>./$wp 2>>./$wp
 else
 wget --no-check-certificate https://bintray.com/artifact/download/pocketmine/PocketMine/$z >>./$wp 2>>./$wp
-	chmod 777 $z >>./$lp 2>>./$lpe
-	tar zxvf $z >>./$lp 2>>./$lpe
-	rm -r $z >>./$lp 2>>./$lpe
+	chmod 777 PHP* >>./$lp 2>>./$lpe
+	tar zxvf PHP* >>./$lp 2>>./$lpe
+	rm -r PHP* >>./$lp 2>>./$lpe
         fi
 	echo
         read -e -p "system> Do you want to auto-restart your server when it stops or crashes? (Y/n):" c
