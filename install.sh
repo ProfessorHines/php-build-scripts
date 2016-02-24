@@ -57,7 +57,7 @@ if [ "$z" == "x" ];then
 	echo "error> An unexpected error occurred - either a 10 second timeout or an unknown selection. Restart the script, and then choose again."
 	exit 1
 else
-echo -n "Do you want to enable auto-restarting server when stop/crash? (Y/n):"
+read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y/n):" c </dev/tty
 		read c
 		echo '# If you want to enable looping, useful for auto-restarting server when it stops or crashes, change "no" to "yes" in DO_LOOP.' > start.sh
 		if [ "$c" == "y" ]||[ "$c" == "Y" ]; then
