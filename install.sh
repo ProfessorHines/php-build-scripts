@@ -57,21 +57,8 @@ if [ "$z" == "x" ];then
 	echo "error> An unexpected error occurred - either a 10 second timeout or an unknown selection. Restart the script, and then choose again."
 	exit 1
 else
-wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/start.sh >>./$l 2>>./$le
-chmod 777 start.sh >>./$l 2>>./$le
-read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y/n):" c
-read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y/n):" c </dev/tty
-#		read c
-		if [ "$c" == "y" ]||[ "$c" == "Y" ]; then
-#			echo 'DO_LOOP="yes"' >> start.sh
-                sed -i 's/DO_LOOP="no"/DO_LOOP="yes"/' start.sh
-		else
-#			echo 'DO_LOOP="no"' >> start.sh
-                sed -i 's/DO_LOOP="yes"/DO_LOOP="no"/' start.sh
-		fi
-
-        echo >> start.sh
 	mkdir install_log
+#        echo >> start.sh
 	echo "system> Installing ImagicalMine..."
 	wget https://github.com/ImagicalMine/ImagicalMine/archive/master.zip >>./$w 2>>./$w
 	chmod 777 master.zip >>./$l 2>>./$le
@@ -84,6 +71,8 @@ read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y
 	cd .. >>../$l 2>>../$le
 	rm -rf ImagicalMine-master >>./$l 2>>./$le
 	rm -rf master.zip >>./$l 2>>./$le
+        wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/start.sh >>./$l 2>>./$le
+        chmod 777 start.sh >>./$l 2>>./$le
         wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/LICENSE.md >>./$l 2>>./$le
 	echo
 	
@@ -93,6 +82,16 @@ read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y
 	tar zxvf $z >>./$lp 2>>./$lpe
 	rm -r $z >>./$lp 2>>./$lpe
 	echo
+        read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y/n):" c
+        read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y/n):" c </dev/tty
+#		read c
+		if [ "$c" == "y" ]||[ "$c" == "Y" ]; then
+#			echo 'DO_LOOP="yes"' >> start.sh
+                sed -i 's/DO_LOOP="no"/DO_LOOP="yes"/' start.sh
+		else
+#			echo 'DO_LOOP="no"' >> start.sh
+                sed -i 's/DO_LOOP="yes"/DO_LOOP="no"/' start.sh
+		fi
 	echo "system> ImagicalMine installation completed! Run ./start.sh (or ./st*) to start ImagicalMine."
         shopt -u extglob
 fi
