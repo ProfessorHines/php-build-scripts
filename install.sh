@@ -53,13 +53,12 @@ lpe="install_log/log_php_errors"
 w="install_log/log_wget"
 wp="install_log/log_wget_php"
 
-	wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/start.sh >>./$l 2>>./$le
-	chmod 777 start.sh >>./$l 2>>./$le
-
 if [ "$z" == "x" ];then
 	echo "error> An unexpected error occurred - either a 10 second timeout or an unknown selection. Restart the script, and then choose again."
 	exit 1
 else
+wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/start.sh >>./$l 2>>./$le
+chmod 777 start.sh >>./$l 2>>./$le
 read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y/n):" c
 read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y/n):" c </dev/tty
 #		read c
