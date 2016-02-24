@@ -82,8 +82,8 @@ else
 	tar zxvf $z >>./$lp 2>>./$lpe
 	rm -r $z >>./$lp 2>>./$lpe
 	echo
-        read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y/n):" c
-        read -e -p "Do you want to auto-restart your server when it stops or crashes? (Y/n):" c </dev/tty
+        read -e -p "system> Do you want to auto-restart your server when it stops or crashes? (Y/n):" c
+        read -e -p "system> Do you want to auto-restart your server when it stops or crashes? (Y/n):" c </dev/tty
 #		read c
 		if [ "$c" == "y" ]||[ "$c" == "Y" ]; then
 #			echo 'DO_LOOP="yes"' >> start.sh
