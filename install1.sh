@@ -25,6 +25,31 @@ cat << "EOF"
 EOF
 
 shopt -s extglob
+l="install_log/log"
+le="install_log/log_errors"
+lp="install_log/log_php"
+lpe="install_log/log_php_errors"
+w="install_log/log_wget"
+wp="install_log/log_wget_php"
+
+echo "system> Welcome to the ImagicalMine installer!"
+echo "system> If your language is not listed below, feel free to fork the ImagicalMine/php-build-scripts repository on GitHub and translate it for us, then make a pull request so this installer includes your language."
+echo "system> Please choose which language you want to use during the installation:"
+echo "system>   1) English"
+echo "system>   2) Chinese"
+echo "system>   3) German"
+echo "system>   4) Exit ImagicalMine installation"
+read -e -p "system> Number (e.g. 1): " k
+read -e -p "system> Number (e.g. 1): " k </dev/tty
+ case "$k" in 
+	1 ) z="en";;
+	2 ) z="de";;
+        3 ) z="ch";;
+        4 ) exit 1;;
+        * ) echo "error> An unexpected error occurred - you chose an unknown selection. Restart the script, and then choose again."; exit 1;;
+ esac
+ 
+
 echo "system> Choose which PHP binary you want to install:"
 echo "system>   1) Linux x86(32-bit system)"
 echo "system>   2) Linux x64(64-bit system)"
@@ -40,21 +65,10 @@ read -e -p "system> Number (e.g. 1): " a </dev/tty
         3 ) z="PHP_7.0.2_x86_MacOS.tar.gz";;
         4 ) z="PHP_7.0.2_x86-64_MacOS.tar.gz";;
         5 ) z="RPI2";;
-        7 ) exit 1;;
-        * ) echo "Input was wrong, choose the number of the required binary"; exit 1;;
+        6 ) exit 1;;
+        * ) echo "error> An unexpected error occurred - you chose an unknown selection. Restart the script, and then choose again."; exit 1;;
  esac
 
-l="install_log/log"
-le="install_log/log_errors"
-lp="install_log/log_php"
-lpe="install_log/log_php_errors"
-w="install_log/log_wget"
-wp="install_log/log_wget_php"
-
-if [ "$z" == "x" ];then
-	echo "error> An unexpected error occurred - either a 10 second timeout or an unknown selection. Restart the script, and then choose again."
-	exit 1
-else
 	mkdir install_log
 #        echo >> start.sh
 	echo "system> Installing ImagicalMine..."
