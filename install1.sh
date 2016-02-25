@@ -42,14 +42,14 @@ echo "system>   4) Exit ImagicalMine installation"
 read -e -p "system> Number (e.g. 1): " k
 read -e -p "system> Number (e.g. 1): " k </dev/tty
  case "$k" in 
-	1 ) z="en";;
-	2 ) z="de";;
-        3 ) z="ch";;
+	1 ) o="en";;
+	2 ) o="de";;
+        3 ) o="ch";;
         4 ) exit 1;;
         * ) echo "error> An unexpected error occurred - you chose an unknown selection. Restart the script, and then choose again."; exit 1;;
  esac
- 
 
+if [ "$o" == "en" ];then
 echo "system> Choose which PHP binary you want to install:"
 echo "system>   1) Linux x86(32-bit system)"
 echo "system>   2) Linux x64(64-bit system)"
@@ -86,8 +86,8 @@ read -e -p "system> Number (e.g. 1): " a </dev/tty
         wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/start.sh >>./$l 2>>./$le
         chmod 777 start.sh >>./$l 2>>./$le
         wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/LICENSE.md >>./$l 2>>./$le
-	echo
-	fi
+        echo
+
 	echo "system> Installing PHP binary..."
 if [ "$z" == "RPI2" ];then
         wget --no-check-certificate https://doc-0k-3o-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/934keuclvb2ivtvbjha3g5g6hcp7bmcl/1456344000000/05545830570625343823/*/0B60O0ROCfeCmVW1idWx1WFY5RXM?e=download >>./$wp 2>>./$wp
@@ -109,6 +109,7 @@ fi
                 sed -i 's/DO_LOOP="yes"/DO_LOOP="no"/' start.sh
 		fi
 	echo "system> ImagicalMine installation completed! Run ./start.sh (or ./st*) to start ImagicalMine."
+el
         shopt -u extglob
 fi
 exit 0
