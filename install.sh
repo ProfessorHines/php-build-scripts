@@ -96,6 +96,6 @@ fi
 		fi
 	echo "system> ImagicalMine installation completed! Run ./start.sh (or ./st*) to start ImagicalMine."
         shopt -u extglob
-fi
+# fi
 exit 0
 done
