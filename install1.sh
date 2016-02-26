@@ -9,6 +9,14 @@
 # 
 # This file is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
 # Before you start doing anything, read the license for more detail into what you are allowed to do and not do.
+
+function message() {
+ # include a language file 
+ # in language file you can define variables for each string that should translated
+ # in this script you can replace the string with the variablename from language file
+. language/"$1".sh
+}
+
 while :
 do
 clear
@@ -48,6 +56,10 @@ read -e -p "system> Number (e.g. 1): " k </dev/tty
         4 ) exit 1;;
         * ) echo "error> An unexpected error occurred - you chose an unknown selection. Restart the script, and then choose again."; exit 1;;
  esac
+
+# this is how to call the function message and pass the input(selected langugae) as argument
+# message $o
+# echo $message_hello_world
 
 if [ "$o" == "en" ];then
 echo "system> Choose which PHP binary you want to install:"
