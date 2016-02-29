@@ -11,10 +11,14 @@
 # Before you start doing anything, read the license for more detail into what you are allowed to do and not do.
 
 function message() {
- # include a language file 
+ # download and include the language file 
  # in language file you can define variables for each string that should translated
  # in this script you can replace the string with the variablename from language file
-. language/"$1".sh
+  if [ ! -d "language" ]; then
+    mkdir "language"
+  fi
+  wget https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/language/"$1".sh -O language/"$1".sh
+  . language/"$1".sh
 }
 
 while :
@@ -58,7 +62,7 @@ read -e -p "system> Number (e.g. 1): " k </dev/tty
  esac
 
 # this is how to call the function message and pass the input(selected langugae) as argument
-# message $o
+# message "en"
 # echo $message_hello_world
 
 if [ "$o" == "en" ];then
