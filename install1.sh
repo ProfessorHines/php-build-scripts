@@ -84,6 +84,13 @@ read -e -p "system> Number (e.g. 1): " a </dev/tty
         * ) echo $error_selection; exit 1;;
  esac
 
+l="install_log/log"
+le="install_log/log_errors"
+lp="install_log/log_php"
+lpe="install_log/log_php_errors"
+w="install_log/log_wget"
+wp="install_log/log_wget_php"
+
 	mkdir install_log
 	echo $im_install_echo
 	wget https://github.com/ImagicalMine/ImagicalMine/archive/master.zip >>./$w 2>>./$w
