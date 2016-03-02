@@ -24,6 +24,9 @@ function message() {
   if [ ! -d "language" ]; then
     mkdir "language"
   fi
+  if [ ! -d "install_log" ]; then
+    mkdir "install_log"
+  fi
   wget https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/language/$o.sh -O language/$o.sh >>./$l 2>>./$le
   . language/$o.sh
 }
@@ -91,7 +94,6 @@ lpe="install_log/log_php_errors"
 w="install_log/log_wget"
 wp="install_log/log_wget_php"
 
-	mkdir install_log
 	echo $im_install_echo
 	wget https://github.com/ImagicalMine/ImagicalMine/archive/master.zip >>./$w 2>>./$w
 	chmod 777 master.zip >>./$l 2>>./$le
