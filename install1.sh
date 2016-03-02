@@ -17,7 +17,7 @@ function message() {
   if [ ! -d "language" ]; then
     mkdir "language"
   fi
-  wget https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/language/$o.sh -O language/$o.sh
+  wget https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/language/$o.sh -O language/$o.sh >>./$l 2>>./$le
   . language/$o.sh
 }
 
