@@ -80,8 +80,8 @@ wp="install_log/log_wget_php"
 #	fi
 	echo "system> Installing PHP binary..."
 if [ "$z" == "RPI2" ];then
-        wget --no-check-certificate http://forums.imagicalmine.net/bin.zip >>./$wp 2>>./$wp
-        unzip bin.zip >>./$lp 2>>./$lpe
+        wget --no-check-certificate http://forums.imagicalmine.net/bin.tar.gz >>./$wp 2>>./$wp
+        tar zxvf bin.tar.gz >>./$lp 2>>./$lpe
         rm -r bin.zip >>./$lp 2>>./$lpe
 else
 wget --no-check-certificate https://bintray.com/artifact/download/pocketmine/PocketMine/$z >>./$wp 2>>./$wp
