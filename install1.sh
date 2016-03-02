@@ -64,7 +64,7 @@ read -e -p "system> Number (e.g. 1): " k </dev/tty
 # this is how to call the function message and pass the input(selected langugae) as argument
 # message "en"
 # echo $message_hello_world
-
+echo
 echo $php_prompt
 echo $linux_32
 echo $linux_64
@@ -84,19 +84,7 @@ read -e -p "system> Number (e.g. 1): " a </dev/tty
         * ) echo $error_selection; exit 1;;
  esac
 
-l="install_log/log"
-le="install_log/log_errors"
-lp="install_log/log_php"
-lpe="install_log/log_php_errors"
-w="install_log/log_wget"
-wp="install_log/log_wget_php"
-
-# if [ "$z" == "x" ];then
-#	echo "error> An unexpected error occurred - either a 10 second timeout or an unknown selection. Restart the script, and then # choose again."
-#	exit 1
-#else
 	mkdir install_log
-#        echo >> start.sh
 	echo $im_install_echo
 	wget https://github.com/ImagicalMine/ImagicalMine/archive/master.zip >>./$w 2>>./$w
 	chmod 777 master.zip >>./$l 2>>./$le
@@ -105,7 +93,6 @@ wp="install_log/log_wget_php"
 	cd ImagicalMine-master >>./$l 2>>./$le
 	chmod 777 src >>../$l 2>>../$le
 	cp -rf src .. >>../$l 2>>../$le
-#        cp -rf start.sh .. >>./$l 2>>./$le
 	cd .. >>../$l 2>>../$le
 	rm -rf ImagicalMine-master >>./$l 2>>./$le
 	rm -rf master.zip >>./$l 2>>./$le
@@ -113,7 +100,6 @@ wp="install_log/log_wget_php"
         chmod 777 start.sh >>./$l 2>>./$le
         wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/LICENSE.md >>./$l 2>>./$le
 	echo
-#	fi
 	echo $php_install_echo
 if [ "$z" == "RPI2" ];then
         wget --no-check-certificate http://forums.imagicalmine.net/bin.zip >>./$wp 2>>./$wp
@@ -128,18 +114,13 @@ fi
 	echo
         read -e -p $loop_prompt c
         read -e -p $loop_prompt c </dev/tty
-#		read c
 		if [ "$c" == "y" ]||[ "$c" == "Y" ]; then
-#			echo 'DO_LOOP="yes"' >> start.sh
                 sed -i 's/DO_LOOP="no"/DO_LOOP="yes"/' start.sh
 		else
-#			echo 'DO_LOOP="no"' >> start.sh
                 sed -i 's/DO_LOOP="yes"/DO_LOOP="no"/' start.sh
 		fi
         
         echo
         echo $installation_complete
-#        shopt -u extglob
-# fi
 exit 0
 done
