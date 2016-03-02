@@ -45,23 +45,21 @@ lpe="install_log/log_php_errors"
 w="install_log/log_wget"
 wp="install_log/log_wget_php"
 
-echo $welcome_to_imagicalmine
-echo $welcome_install_server
-echo
-echo $language_translation
-echo $language_selection
-echo $en
-echo $ch
-echo $de
-echo $exit
-read -e -p $no_selection k
-read -e -p $no_selection k </dev/tty
+echo "system> Welcome to the ImagicalMine installer!"
+echo "system> If your language is not listed below, feel free to fork the ImagicalMine/php-build-scripts repository on GitHub and translate it for us, then make a pull request so this installer includes your language."
+echo "system> Please choose which language you want to use during the installation:"
+echo "system>   1) English"
+echo "system>   2) Chinese"
+echo "system>   3) German"
+echo "system>   4) Exit ImagicalMine installation"
+read -e -p "system> Number (e.g. 1): " k
+read -e -p "system> Number (e.g. 1): " k </dev/tty
  case "$k" in 
-	1 ) o="en";;
-	2 ) o="ch";;
-        3 ) o="de";;
+	1 ) o="en"; message "en;;
+	2 ) o="ch"; message "ch;;
+        3 ) o="de"; message "de";;
         4 ) exit 1;;
-        * ) echo $error_selection; exit 1;;
+        * ) echo "error> An unexpected error occurred - you entered an unknown selection. Restart the script, and then choose again."; exit 1;;
  esac
 
 # this is how to call the function message and pass the input(selected langugae) as argument
