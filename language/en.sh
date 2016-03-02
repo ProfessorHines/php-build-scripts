@@ -28,5 +28,5 @@ rpi2="system>   5) Raspberry Pi 2"
 
 im_install_echo="system> Installing ImagicalMine..."
 php_install_echo="system> Installing PHP binary..."
-loop_prompt="system> Do you want ImagicalMine to automatically restart your server if it stops or crashes?(Y/n): "
+loop_prompt="system> Do you want ImagicalMine to automatically restart your server if it stops or crashes (Y/n): "
 installation_complete="system> ImagicalMine installation completed! Run ./start.sh (or ./st*) to start ImagicalMine."
