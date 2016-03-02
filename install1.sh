@@ -126,9 +126,9 @@ fi
         echo $no
         read -e -p $no_selection t
         read -e -p $no_selection t </dev/tty
-        case "$a" in 
+        case "$t" in 
 	1 ) c="y";;
-	2 ) c="N";;
+	2 ) c="n";;
         * ) echo $error_selection; exit 1;;
         esac
 		if [ "$c" == "y" ]||[ "$c" == "Y" ]; then
