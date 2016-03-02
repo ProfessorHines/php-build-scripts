@@ -121,14 +121,21 @@ wget --no-check-certificate https://bintray.com/artifact/download/pocketmine/Poc
 	rm -r PHP* >>./$lp 2>>./$lpe
 fi
 	echo
-        read -e -p $loop_prompt c
-        read -e -p $loop_prompt c </dev/tty
+        echo $loop_prompt
+        echo $yes
+        echo $no
+        read -e -p $no_selection t
+        read -e -p $no_selection t </dev/tty
+        case "$a" in 
+	1 ) c="y";;
+	2 ) c="N";;
+        * ) echo $error_selection; exit 1;;
+        esac
 		if [ "$c" == "y" ]||[ "$c" == "Y" ]; then
                 sed -i 's/DO_LOOP="no"/DO_LOOP="yes"/' start.sh
 		else
                 sed -i 's/DO_LOOP="yes"/DO_LOOP="no"/' start.sh
-		fi
-        
+		fi        
         echo
         echo $installation_complete
 exit 0
