@@ -6,7 +6,7 @@ message_hello_world="Hello world"
 # Global messages(displayed multiple times throughout)
 exit="system>   4) Exit ImagicalMine installation"
 exit1="system>   6) Exit ImagicalMine installation"
-no_selection="system> Number (e.g. 1): "
+no_selection="system> Number (1): "
 error_selection="error> An unexpected error occurred - you entered an unknown selection. Restart the script, and then choose again."
 
 # Individual messages(only displayed once)
