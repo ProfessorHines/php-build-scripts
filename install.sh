@@ -21,16 +21,20 @@ cat << "EOF"
  | | | | | | | (_| | (_| | | (_| (_| | | |  | | | | | |  __/ 
  |_|_| |_| |_|\__,_|\__, |_|\___\__,_|_|_|  |_|_|_| |_|\___| 
                      __/ |                                   
-                    |___/     
+                    |___/   
+  
 EOF
 
-shopt -s extglob
-echo "system> Choose which PHP binary you want to install:"
-echo "system>   1) Linux x86(32-bit system)"
-echo "system>   2) Linux x64(64-bit system)"
-echo "system>   3) Mac x86(32-bit system)"
-echo "system>   4) Mac x64(64-bit system)"
-echo "system>   5) Raspberry Pi"
+# shopt -s extglob
+echo "system> Welcome to ImagicalMine!"
+echo "system> This installer will guide you through installing ImagicalMine for your server!"
+echo
+echo "system> Select which PHP binary you want to install:"
+echo "system>   1) Linux x86(32-bit)"
+echo "system>   2) Linux x64(64-bit)"
+echo "system>   3) Mac x86(32-bit)"
+echo "system>   4) Mac x64(64-bit)"
+echo "system>   5) Raspberry Pi 2"
 echo "system>   6) Exit ImagicalMine installation"
 read -e -p "system> Number (e.g. 1): " a
 read -e -p "system> Number (e.g. 1): " a </dev/tty
@@ -96,8 +100,17 @@ fi
 #			echo 'DO_LOOP="no"' >> start.sh
                 sed -i 's/DO_LOOP="yes"/DO_LOOP="no"/' start.sh
 		fi
-	echo "system> ImagicalMine installation completed! Run ./start.sh (or ./st*) to start ImagicalMine."
-        shopt -u extglob
+        
+        echo
+        read -e -p "system> ImagicalMine installation completed! Do you want to start ImagicalMine now? (Y/n):" c
+        read -e -p "system> ImagicalMine installation completed! Do you want to start ImagicalMine now? (Y/n):" c </dev/tty
+#		read c
+		if [ "$c" == "y" ]||[ "$c" == "Y" ]; then
+                sh start.sh
+		else
+	        echo "system> ImagicalMine installation completed! You have decided to run ImagicalMine later. Run ./start.sh (or ./st*) to start ImagicalMine later."
+                fi
+#        shopt -u extglob
 # fi
 exit 0
 done
