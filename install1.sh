@@ -126,7 +126,7 @@ fi
         echo $no
         read -e -p $no_selection t
         read -e -p $no_selection t </dev/tty
-        case "$t" in 
+        case "$t" in
 	1 ) c="y";;
 	2 ) c="n";;
         * ) echo $error_selection; exit 1;;
