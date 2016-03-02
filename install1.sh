@@ -45,37 +45,36 @@ lpe="install_log/log_php_errors"
 w="install_log/log_wget"
 wp="install_log/log_wget_php"
 
-echo "system> Welcome to the ImagicalMine installer!"
-echo "system> If your language is not listed below, feel free to fork the ImagicalMine/php-build-scripts repository on GitHub and translate it for us, then make a pull request so this installer includes your language."
-echo "system> Please choose which language you want to use during the installation:"
-echo "system>   1) English"
-echo "system>   2) Chinese"
-echo "system>   3) German"
-echo "system>   4) Exit ImagicalMine installation"
-read -e -p "system> Number (e.g. 1): " k
-read -e -p "system> Number (e.g. 1): " k </dev/tty
+echo $welcome_to_imagicalmine
+echo $welcome_install_server
+echo
+echo $language_translation
+echo $language_selection
+echo $en
+echo $ch
+echo $de
+echo $exit
+read -e -p $no_selection k
+read -e -p $no_selection k </dev/tty
  case "$k" in 
 	1 ) o="en";;
-	2 ) o="de";;
-        3 ) o="ch";;
+	2 ) o="ch";;
+        3 ) o="de";;
         4 ) exit 1;;
-        * ) echo "error> An unexpected error occurred - you chose an unknown selection. Restart the script, and then choose again."; exit 1;;
+        * ) echo $error_selection; exit 1;;
  esac
 
 # this is how to call the function message and pass the input(selected langugae) as argument
 # message "en"
 # echo $message_hello_world
 
-echo "system> Welcome to ImagicalMine!"
-echo "system> This installer will guide you through installing ImagicalMine for your server!"
-echo
-echo "system> Select which PHP binary you want to install:"
-echo "system>   1) Linux x86(32-bit)"
-echo "system>   2) Linux x64(64-bit)"
-echo "system>   3) Mac x86(32-bit)"
-echo "system>   4) Mac x64(64-bit)"
-echo "system>   5) Raspberry Pi 2"
-echo "system>   6) Exit ImagicalMine installation"
+echo $php_prompt
+echo $linux_32
+echo $linux_64
+echo $mac_32
+echo $mac_64
+echo $rpi2
+echo $exit1
 read -e -p "system> Number (e.g. 1): " a
 read -e -p "system> Number (e.g. 1): " a </dev/tty
  case "$a" in 
@@ -85,7 +84,7 @@ read -e -p "system> Number (e.g. 1): " a </dev/tty
         4 ) z="PHP_7.0.2_x86-64_MacOS.tar.gz";;
         5 ) z="RPI2";;
         6 ) exit 1;;
-        * ) echo "error> An unexpected error occurred - either a 10 second timeout or an unknown selection. Restart the script, and then choose again."; exit 1;;
+        * ) echo $error_selection; exit 1;;
  esac
 
 l="install_log/log"
@@ -101,7 +100,7 @@ wp="install_log/log_wget_php"
 #else
 	mkdir install_log
 #        echo >> start.sh
-	echo "system> Installing ImagicalMine..."
+	echo $im_install_echo
 	wget https://github.com/ImagicalMine/ImagicalMine/archive/master.zip >>./$w 2>>./$w
 	chmod 777 master.zip >>./$l 2>>./$le
 	unzip -o master.zip >>./$l 2>>./$le
@@ -118,7 +117,7 @@ wp="install_log/log_wget_php"
         wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/LICENSE.md >>./$l 2>>./$le
 	echo
 #	fi
-	echo "system> Installing PHP binary..."
+	echo $php_install_echo
 if [ "$z" == "RPI2" ];then
         wget --no-check-certificate http://forums.imagicalmine.net/bin.zip >>./$wp 2>>./$wp
         unzip bin.zip >>./$lp 2>>./$lpe
@@ -130,8 +129,8 @@ wget --no-check-certificate https://bintray.com/artifact/download/pocketmine/Poc
 	rm -r PHP* >>./$lp 2>>./$lpe
 fi
 	echo
-        read -e -p "system> Do you want to auto-restart your server when it stops or crashes? (Y/n):" c
-        read -e -p "system> Do you want to auto-restart your server when it stops or crashes? (Y/n):" c </dev/tty
+        read -e -p $loop_prompt c
+        read -e -p $loop_prompt c </dev/tty
 #		read c
 		if [ "$c" == "y" ]||[ "$c" == "Y" ]; then
 #			echo 'DO_LOOP="yes"' >> start.sh
@@ -142,7 +141,7 @@ fi
 		fi
         
         echo
-        echo "system> ImagicalMine installation completed! Run ./start.sh (or ./st*) to start ImagicalMine."
+        echo $installation_complete
 #        shopt -u extglob
 # fi
 exit 0
