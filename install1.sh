@@ -10,6 +10,13 @@
 # This file is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
 # Before you start doing anything, read the license for more detail into what you are allowed to do and not do.
 
+l="install_log/log"
+le="install_log/log_errors"
+lp="install_log/log_php"
+lpe="install_log/log_php_errors"
+w="install_log/log_wget"
+wp="install_log/log_wget_php"
+
 function message() {
  # download and include the language file 
  # in language file you can define variables for each string that should translated
@@ -36,14 +43,6 @@ cat << "EOF"
                     |___/  
    
 EOF
-
-# shopt -s extglob
-l="install_log/log"
-le="install_log/log_errors"
-lp="install_log/log_php"
-lpe="install_log/log_php_errors"
-w="install_log/log_wget"
-wp="install_log/log_wget_php"
 
 echo "system> Welcome to the ImagicalMine installer!"
 echo "system> If your language is not listed below, feel free to fork the ImagicalMine/php-build-scripts repository on GitHub and translate it for us, then make a pull request so this installer includes your language."
