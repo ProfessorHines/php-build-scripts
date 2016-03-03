@@ -75,8 +75,8 @@ echo $mac_32
 echo $mac_64
 echo $rpi2
 echo $exit1
-read -e -p "system> Number (e.g. 1): " a
-read -e -p "system> Number (e.g. 1): " a </dev/tty
+read -e -p "$no_selection" a
+read -e -p "$no_selection" a </dev/tty
  case "$a" in 
 	1 ) z="PHP_7.0.2_x86_Linux.tar.gz";;
 	2 ) z="PHP_7.0.2_x86-64_Linux.tar.gz";;
@@ -124,8 +124,8 @@ fi
         echo $loop_prompt
         echo $yes
         echo $no
-        read -e -p $no_selection t
-        read -e -p $no_selection t </dev/tty
+        read -e -p "$no_selection" t
+        read -e -p "$no_selection" t </dev/tty
         case "$t" in
 	1 ) c="y";;
 	2 ) c="n";;
