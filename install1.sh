@@ -68,6 +68,8 @@ read -e -p "system> Number (e.g. 1): " k </dev/tty
 # message "en"
 # echo $message_hello_world
 echo
+echo $language_selected
+echo
 echo $php_prompt
 echo $linux_32
 echo $linux_64
