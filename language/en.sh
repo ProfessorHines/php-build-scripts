@@ -19,6 +19,7 @@ en="system>   1) English"
 ch="system>   2) Chinese"
 de="system>   3) German"
 
+language_selected="system> You've selected English for the language to be used throughout installing ImagicalMine."
 php_prompt="system> Select which PHP binary you want to install:"
 linux_32="system>   1) Linux x86(32-bit)"
 linux_64="system>   2) Linux x64(64-bit)"
