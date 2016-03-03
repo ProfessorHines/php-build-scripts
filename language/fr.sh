@@ -18,7 +18,7 @@ language_selection="system> Choisisez le language que vous souhaitez utilisé du
 en="système>   1) Anglais"
 ch="système>   2) Chinois"
 de="système>   3) Allemand"
-# fr="système>   4) Français"
+fr="système>   4) Français"
 
 language_selected="système> Vous avez séléctioné le Français pour language d'installation d'ImagicalMine."
 php_prompt="système> Séléctionnez quel binaire PHP souhaitez vous installer:"
