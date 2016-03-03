@@ -57,8 +57,8 @@ echo "system>   4) Exit ImagicalMine installation"
 read -e -p "system> Number (e.g. 1): " k
 read -e -p "system> Number (e.g. 1): " k </dev/tty
  case "$k" in 
-	1 ) o="en"; message "en;;
-	2 ) o="ch"; message "ch;;
+	1 ) o="en"; message "en";;
+	2 ) o="ch"; message "ch";;
         3 ) o="de"; message "de";;
         4 ) exit 1;;
         * ) echo "error> An unexpected error occurred - you entered an unknown selection. Restart the script, and then choose again."; exit 1;;
