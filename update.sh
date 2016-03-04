@@ -10,6 +10,10 @@
 # This file is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
 # Before you start doing anything, read the license for more detail into what you are allowed to do and not do.
 
+if [ ! -d "update_log" ]; then
+    mkdir "update_log"
+fi
+
 l="update_log/log"
 le="update_log/log_errors"
 lp="update_log/log_php"
