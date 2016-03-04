@@ -132,6 +132,13 @@ wp="install_log/log_wget_php"
         else
         wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/LICENSE.md >>./$l 2>>./$le
         fi
+        if [ "$z" == "PHP_7.0.2_x86_MacOS.tar.gz" ]; then
+        curl -O --insecure https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/update.sh >>./$l 2>>./$le
+        elif [ "$z" == "PHP_7.0.2_x86-64_MacOS.tar.gz" ]; then
+        curl -O --insecure https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/update.sh >>./$l 2>>./$le
+        else
+        wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/update.sh >>./$l 2>>./$le
+        fi
 	echo
 	echo $php_install_echo
 if [ "$z" == "RPI2" ]; then
