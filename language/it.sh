@@ -11,8 +11,8 @@ error_selection="errore> Si è verificato un errore imprevisto - è stata immess
 
 # messaggi individuali (solo visualizzata una sola volta)
 
-language_selected="sistema> Hai selezionato inglese per il linguaggio da utilizzare in tutta l'installazione ImagicalMine ."
-php_prompt="sistema> Selezionare i binari PHP che si desidera installare :"
+language_selected="sistema> Hai selezionato inglese per il linguaggio da utilizzare in tutta l'installazione ImagicalMine."
+php_prompt="sistema> Selezionare i binari PHP che si desidera installare:"
 linux_32="sistema>   1) Linux x86 (32-bit)"
 linux_64="sistema>   2) Linux x64(64-bit)"
 mac_32="sistema>   3) Mac x86(32-bit)"
