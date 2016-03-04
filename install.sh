@@ -143,6 +143,7 @@ wp="install_log/log_wget_php"
         else
         wget --no-check-certificate https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/update.sh >>./$l 2>>./$le
         fi
+        chmod 777 update.sh >>./$l 2>>./$le
 	echo
 	echo $php_install_echo
 if [ "$z" == "RPI2" ]; then
