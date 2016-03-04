@@ -55,7 +55,9 @@ echo "system>   2) Chinese"
 echo "system>   3) German"
 echo "system>   4) French"
 echo "system>   5) Russian"
-echo "system>   6) Exit ImagicalMine installation"
+echo "system>   6) Sweedish"
+echo "system>   7) Italian"
+echo "system>   8) Exit ImagicalMine installation"
 read -e -p "system> Number (e.g. 1): " k
 read -e -p "system> Number (e.g. 1): " k </dev/tty
  case "$k" in 
@@ -64,7 +66,9 @@ read -e -p "system> Number (e.g. 1): " k </dev/tty
         3 ) o="de"; message "de";;
         4 ) o="fr"; message "fr";;
         5 ) o="ru"; message "ru";;
-        6 ) exit 1;;
+        6 ) o="sw"; message "sw";;
+        7 ) o="it"; message "it";;
+        8 ) exit 1;;
         * ) echo "error> An unexpected error occurred - you entered an unknown selection. Restart the script, and then choose again."; exit 1;;
  esac
 
