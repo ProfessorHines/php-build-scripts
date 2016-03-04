@@ -10,16 +10,6 @@ no_selection = "systemet> Number (t ex 1):"
 error_selection = "error> Ett oväntat fel uppstod - du har angett en okänd val Starta manus, och välj sedan igen.".
 
 # Enskilda meddelanden (endast visas en gång)
-welcome_to_imagicalmine = "systemet> Välkommen till ImagicalMine!"
-welcome_install_server = "systemet> Installationsprogrammet kommer att guida dig genom att installera ImagicalMine för din server!"
-
-language_translation = "systemet> Om ditt språk inte finns med i listan nedan, gärna punga de ImagicalMine / php-build-skript förvaret på GitHub och översätta det för oss, sedan göra en begäran dra så här installationsprogrammet innehåller ditt språk."
-language_selection = "systemet> Välj vilket språk du vill använda under installationen:"
-sv = "systemet> 1) English"
-ch = "systemet> 2) Kinesiska"
-de = "systemet> 3) Tyska"
-ru = "systemet> 4) Ryska
-sw = "systemet> 5) Svenska
 
 language_selected = "systemet> Du har valt engelska för det språk som ska användas under installation ImagicalMine."
 php_prompt = "systemet> Välj vilken PHP binär du vill installera:"
