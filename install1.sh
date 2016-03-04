@@ -53,14 +53,18 @@ echo "system> Please choose which language you want to use during the installati
 echo "system>   1) English"
 echo "system>   2) Chinese"
 echo "system>   3) German"
-echo "system>   4) Exit ImagicalMine installation"
+echo "system>   4) French
+echo "system>   5) Russian
+echo "system>   6) Exit ImagicalMine installation"
 read -e -p "system> Number (e.g. 1): " k
 read -e -p "system> Number (e.g. 1): " k </dev/tty
  case "$k" in 
 	1 ) o="en"; message "en";;
 	2 ) o="ch"; message "ch";;
         3 ) o="de"; message "de";;
-        4 ) exit 1;;
+        4 ) o="fr"; message "fr";;
+        5 ) o="ru"; message "ru";;
+        6 ) exit 1;;
         * ) echo "error> An unexpected error occurred - you entered an unknown selection. Restart the script, and then choose again."; exit 1;;
  esac
 
