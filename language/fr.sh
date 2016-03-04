@@ -10,15 +10,6 @@ no_selection="système> Nombre (exemple: 1):"
 error_selection="erreur> Erreur - Vous avez entré une séléction inconnue. Redémarez le script et choisissez à nouveau."
 
 # Messages Individuels(envoyés une seule fois)
-welcome_to_imagicalmine="système> Bienvenue sur ImagicalMine!"
-welcome_install_server="system> Cet installeur va vous guider pour toutes les étapes d'installation!"
-
-language_translation="système> Si votre langue n'est pas si dessous, créez le sur Github : ImagicalMine/php-build-scripts et traduisez le pour nous, puis faites une "pull request" pour que l'installeur puisse être dans votre langue."
-language_selection="system> Choisisez le language que vous souhaitez utilisé durant l'installation:"
-en="système>   1) Anglais"
-ch="système>   2) Chinois"
-de="système>   3) Allemand"
-fr="système>   4) Français"
 
 language_selected="système> Vous avez séléctioné le Français pour language d'installation d'ImagicalMine."
 php_prompt="système> Séléctionnez quel binaire PHP souhaitez vous installer:"
