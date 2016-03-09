@@ -59,7 +59,7 @@ echo "system>   5) Russian"
 echo "system>   6) Sweedish"
 echo "system>   7) Italian"
 echo "system>   8) Czech"
-echo "system>   9) Vietnamnese
+echo "system>   9) Vietnamnese"
 echo "system>   10) Exit ImagicalMine installation"
 read -e -p "system> Number (e.g. 1): " k
 read -e -p "system> Number (e.g. 1): " k </dev/tty
