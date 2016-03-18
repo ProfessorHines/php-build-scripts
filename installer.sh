@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CHANNEL="stable"
-NAME="PocketMine-MP"
+NAME="ImagicalMine"
 
 LINUX_32_BUILD="PHP_5.6.10_x86_Linux"
 LINUX_64_BUILD="PHP_5.6.10_x86-64_Linux"
@@ -84,103 +84,18 @@ fi
 
 if [ "$checkRoot" == "on" ]; then
 	if [ "$(id -u)" == "0" ]; then
-	   echo "This script is running as root, this is discouraged."
-	   echo "It is recommended to run it as a normal user as it doesn't need further permissions."
-	   echo "If you want to run it as root, add the -r flag."
+	   echo "Please note that you're running the installation as the root user."
+	   echo "It's recommended to run it as a normal user, as it doesn't need further permissions."
+	   echo "If you want to run it as root, add the -r flag when running the command."
 	   exit 1
 	fi
 fi
-
-if [ "$CHANNEL" == "soft" ]; then
-	NAME="PocketMine-Soft"
-fi
-
-ENABLE_GPG="no"
-PUBLICKEY_URL="http://cdn.pocketmine.net/pocketmine.asc"
-PUBLICKEY_FINGERPRINT="20D377AFC3F7535B3261AA4DCF48E7E52280B75B"
-PUBLICKEY_LONGID="${PUBLICKEY_FINGERPRINT: -16}"
-GPG_KEYSERVER="pgp.mit.edu"
-
-function check_signature {
-	echo "[*] Checking signature of $1"
-	"$GPG_BIN" --keyserver "$GPG_KEYSERVER" --keyserver-options auto-key-retrieve=1 --trusted-key $PUBLICKEY_LONGID --verify "$1.sig" "$1"
-	if [ $? -eq 0 ]; then
-		echo "[+] Signature valid and checked!"
-	else
-		"$GPG_BIN" --refresh-keys > /dev/null 2>&1
-		echo "[!] Invalid signature! Please check for file corruption or a wrongly imported public key (signed by $PUBLICKEY_FINGERPRINT)"
-		exit 1
-	fi	
-}
-
-VERSION_DATA=$(download_file "http://www.pocketmine.net/api/?channel=$CHANNEL")
 
 VERSION=$(echo "$VERSION_DATA" | grep '"version"' | cut -d ':' -f2- | tr -d ' ",')
 BUILD=$(echo "$VERSION_DATA" | grep build | cut -d ':' -f2- | tr -d ' ",')
 API_VERSION=$(echo "$VERSION_DATA" | grep api_version | cut -d ':' -f2- | tr -d ' ",')
 VERSION_DATE=$(echo "$VERSION_DATA" | grep '"date"' | cut -d ':' -f2- | tr -d ' ",')
 VERSION_DOWNLOAD=$(echo "$VERSION_DATA" | grep '"download_url"' | cut -d ':' -f2- | tr -d ' ",')
-
-if [ "$alternateurl" == "on" ]; then
-    VERSION_DOWNLOAD=$(echo "$VERSION_DATA" | grep '"alternate_download_url"' | cut -d ':' -f2- | tr -d ' ",')
-fi
-
-if [ "$(uname -s)" == "Darwin" ]; then
-	BASE_VERSION=$(echo "$VERSION" | sed -E 's/([A-Za-z0-9_\.]*).*/\1/')
-	VERSION_DATE_STRING=$(date -j -f "%s" $VERSION_DATE)
-else
-	BASE_VERSION=$(echo "$VERSION" | sed -r 's/([A-Za-z0-9_\.]*).*/\1/')
-	VERSION_DATE_STRING=$(date --date="@$VERSION_DATE")
-fi
-
-GPG_SIGNATURE=$(echo "$VERSION_DATA" | grep '"signature_url"' | cut -d ':' -f2- | tr -d ' ",')
-
-if [ "$GPG_SIGNATURE" != "" ]; then
-	ENABLE_GPG="yes"
-fi
-
-if [ "$VERSION" == "" ]; then
-	echo "[!] Couldn't get the latest $NAME version"
-	exit 1
-fi
-
-GPG_BIN=""
-
-if [ "$ENABLE_GPG" == "yes" ]; then
-	type gpg > /dev/null 2>&1
-	if [ $? -eq 0 ]; then
-		GPG_BIN="gpg"
-	else
-		type gpg2 > /dev/null 2>&1
-		if [ $? -eq 0 ]; then
-			GPG_BIN="gpg2"
-		fi
-	fi
-	
-	if [ "$GPG_BIN" != "" ]; then
-		gpg --fingerprint $PUBLICKEY_FINGERPRINT > /dev/null 2>&1
-		if [ $? -ne 0 ]; then
-			download_file $PUBLICKEY_URL | gpg --trusted-key $PUBLICKEY_LONGID --import
-			gpg --fingerprint $PUBLICKEY_FINGERPRINT > /dev/null 2>&1
-			if [ $? -ne 0 ]; then
-				gpg --trusted-key $PUBLICKEY_LONGID --keyserver "$GPG_KEYSERVER" --recv-key $PUBLICKEY_FINGERPRINT
-			fi
-		fi
-	else
-		ENABLE_GPG="no"
-	fi
-fi
-
-echo "[*] Found $NAME $BASE_VERSION (build $BUILD) using API $API_VERSION"
-echo "[*] This $CHANNEL build was released on $VERSION_DATE_STRING"
-
-if [ "$ENABLE_GPG" == "yes" ]; then
-	echo "[+] The build was signed, will check signature"
-elif [ "$GPG_SIGNATURE" == "" ]; then
-	if [[ "$CHANNEL" == "beta" ]] || [[ "$CHANNEL" == "stable" ]]; then
-		echo "[-] This channel should have a signature, none found"
-	fi
-fi
 
 echo "[*] Installing/updating $NAME on directory $INSTALL_DIRECTORY"
 mkdir -m 0777 "$INSTALL_DIRECTORY" 2> /dev/null
@@ -197,35 +112,28 @@ rm -f start.bat
 rm -f PocketMine-MP.php
 rm -r -f src/
 
-echo -n "[2/3] Downloading $NAME $VERSION phar..."
+echo -n "[2/3] Downloading $NAME..."
 set +e
 download_file "$VERSION_DOWNLOAD" > "$NAME.phar"
 if ! [ -s "$NAME.phar" ] || [ "$(head -n 1 $NAME.phar)" == '<!DOCTYPE html>' ]; then
 	rm "$NAME.phar" 2> /dev/null
 	echo " failed!"
-	echo "[!] Couldn't download $NAME automatically from $VERSION_DOWNLOAD"
+	echo "[!] Couldn't download $NAME automatically"
 	exit 1
 else
 	if [ "$CHANNEL" == "soft" ]; then
-		download_file "https://raw.githubusercontent.com/PocketMine/PocketMine-Soft/master/resources/start.sh" > start.sh
+		download_file "https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/resources/start.sh" > start.sh
 	else
-		download_file "https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/start.sh" > start.sh
+		download_file "https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/start.sh" > start.sh
 	fi
-	download_file "https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/LICENSE" > LICENSE
-	download_file "https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/README.md" > README.md
-	download_file "https://raw.githubusercontent.com/PocketMine/PocketMine-MP/master/CONTRIBUTING.md" > CONTRIBUTING.md
-	download_file "https://raw.githubusercontent.com/PocketMine/php-build-scripts/master/compile.sh" > compile.sh
+	download_file "https://raw.githubusercontent.com/ImagicalMine/ImagicalMine/master/LICENSE" > LICENSE
+	download_file "https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/compile.sh" > compile.sh
 fi
 
 chmod +x compile.sh
 chmod +x start.sh
 
 echo " done!"
-
-if [ "$ENABLE_GPG" == "yes" ]; then
-	download_file "$GPG_SIGNATURE" > "$NAME.phar.sig"
-	check_signature "$NAME.phar"
-fi
 
 if [ "$update" == "on" ]; then
 	echo "[3/3] Skipping PHP recompilation due to user request"
@@ -241,19 +149,19 @@ else
 			rm -r -f bin/ >> /dev/null 2>&1
 			echo -n "[3/3] iOS PHP build available, downloading $IOS_BUILD.tar.gz..."
 			download_file "https://dl.bintray.com/pocketmine/PocketMine/$IOS_BUILD.tar.gz" | tar -zx > /dev/null 2>&1
-			chmod +x ./bin/php5/bin/*
+			chmod +x ./bin/php7/bin/*
 			echo -n " checking..."
-			if [ "$(./bin/php5/bin/php -r 'echo 1;' 2>/dev/null)" == "1" ]; then
+			if [ "$(./bin/php7/bin/php -r 'echo 1;' 2>/dev/null)" == "1" ]; then
 				echo -n " regenerating php.ini..."
 				TIMEZONE=$(date +%Z)
-				echo "" > "./bin/php5/bin/php.ini"
+				echo "" > "./bin/php7/bin/php.ini"
 				#UOPZ_PATH="$(find $(pwd) -name uopz.so)"
-				#echo "zend_extension=\"$UOPZ_PATH\"" >> "./bin/php5/bin/php.ini"
-				echo "date.timezone=$TIMEZONE" >> "./bin/php5/bin/php.ini"
-				echo "short_open_tag=0" >> "./bin/php5/bin/php.ini"
-				echo "asp_tags=0" >> "./bin/php5/bin/php.ini"
-				echo "phar.readonly=0" >> "./bin/php5/bin/php.ini"
-				echo "phar.require_hash=1" >> "./bin/php5/bin/php.ini"
+				#echo "zend_extension=\"$UOPZ_PATH\"" >> "./bin/php7/bin/php.ini"
+				echo "date.timezone=$TIMEZONE" >> "./bin/php7/bin/php.ini"
+				echo "short_open_tag=0" >> "./bin/php7/bin/php.ini"
+				echo "asp_tags=0" >> "./bin/php7/bin/php.ini"
+				echo "phar.readonly=0" >> "./bin/php7/bin/php.ini"
+				echo "phar.require_hash=1" >> "./bin/php7/bin/php.ini"
 				echo " done"
 				alldone=yes
 			else
@@ -269,34 +177,34 @@ else
 				MAC_BUILD="$MAC_32_BUILD"
 			fi
 			download_file "https://dl.bintray.com/pocketmine/PocketMine/$MAC_BUILD.tar.gz" | tar -zx > /dev/null 2>&1
-			chmod +x ./bin/php5/bin/*
+			chmod +x ./bin/php7/bin/*
 			echo -n " checking..."
 			if [ "$(./bin/php5/bin/php -r 'echo 1;' 2>/dev/null)" == "1" ]; then
 				echo -n " regenerating php.ini..."
 				TIMEZONE=$(date +%Z)
 				#OPCACHE_PATH="$(find $(pwd) -name opcache.so)"
 				XDEBUG_PATH="$(find $(pwd) -name xdebug.so)"
-				echo "" > "./bin/php5/bin/php.ini"
+				echo "" > "./bin/php7/bin/php.ini"
 				#UOPZ_PATH="$(find $(pwd) -name uopz.so)"
-				#echo "zend_extension=\"$UOPZ_PATH\"" >> "./bin/php5/bin/php.ini"
-				#echo "zend_extension=\"$OPCACHE_PATH\"" >> "./bin/php5/bin/php.ini"
+				#echo "zend_extension=\"$UOPZ_PATH\"" >> "./bin/php7/bin/php.ini"
+				#echo "zend_extension=\"$OPCACHE_PATH\"" >> "./bin/php7/bin/php.ini"
 				if [ "$XDEBUG" == "on" ]; then
-					echo "zend_extension=\"$XDEBUG_PATH\"" >> "./bin/php5/bin/php.ini"
+					echo "zend_extension=\"$XDEBUG_PATH\"" >> "./bin/php7/bin/php.ini"
 				fi
-				echo "opcache.enable=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.enable_cli=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.save_comments=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.load_comments=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.fast_shutdown=0" >> "./bin/php5/bin/php.ini"
-				echo "opcache.max_accelerated_files=4096" >> "./bin/php5/bin/php.ini"
-				echo "opcache.interned_strings_buffer=8" >> "./bin/php5/bin/php.ini"
-				echo "opcache.memory_consumption=128" >> "./bin/php5/bin/php.ini"
-				echo "opcache.optimization_level=0xffffffff" >> "./bin/php5/bin/php.ini"
-				echo "date.timezone=$TIMEZONE" >> "./bin/php5/bin/php.ini"
-				echo "short_open_tag=0" >> "./bin/php5/bin/php.ini"
-				echo "asp_tags=0" >> "./bin/php5/bin/php.ini"
-				echo "phar.readonly=0" >> "./bin/php5/bin/php.ini"
-				echo "phar.require_hash=1" >> "./bin/php5/bin/php.ini"
+				echo "opcache.enable=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.enable_cli=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.save_comments=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.load_comments=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.fast_shutdown=0" >> "./bin/php7/bin/php.ini"
+				echo "opcache.max_accelerated_files=4096" >> "./bin/php7/bin/php.ini"
+				echo "opcache.interned_strings_buffer=8" >> "./bin/php7/bin/php.ini"
+				echo "opcache.memory_consumption=128" >> "./bin/php7/bin/php.ini"
+				echo "opcache.optimization_level=0xffffffff" >> "./bin/php7/bin/php.ini"
+				echo "date.timezone=$TIMEZONE" >> "./bin/php7/bin/php.ini"
+				echo "short_open_tag=0" >> "./bin/php7/bin/php.ini"
+				echo "asp_tags=0" >> "./bin/php7/bin/php.ini"
+				echo "phar.readonly=0" >> "./bin/php7/bin/php.ini"
+				echo "phar.require_hash=1" >> "./bin/php7/bin/php.ini"
 				echo " done"
 				alldone=yes
 			else
@@ -314,36 +222,36 @@ else
 			rm -r -f bin/ >> /dev/null 2>&1
 			echo -n "[3/3] Raspberry Pi PHP build available, downloading $RPI_BUILD.tar.gz..."
 			download_file "https://dl.bintray.com/pocketmine/PocketMine/$RPI_BUILD.tar.gz" | tar -zx > /dev/null 2>&1
-			chmod +x ./bin/php5/bin/*
+			chmod +x ./bin/php7/bin/*
 			echo -n " checking..."
 			if [ "$(./bin/php5/bin/php -r 'echo 1;' 2>/dev/null)" == "1" ]; then
 				echo -n " regenerating php.ini..."
 				TIMEZONE=$(date +%Z)
 				#OPCACHE_PATH="$(find $(pwd) -name opcache.so)"
 				if [ "$XDEBUG" == "on" ]; then
-					echo "zend_extension=\"$XDEBUG_PATH\"" >> "./bin/php5/bin/php.ini"
+					echo "zend_extension=\"$XDEBUG_PATH\"" >> "./bin/php7/bin/php.ini"
 				fi
-				echo "" > "./bin/php5/bin/php.ini"
+				echo "" > "./bin/php7/bin/php.ini"
 				#UOPZ_PATH="$(find $(pwd) -name uopz.so)"
-				#echo "zend_extension=\"$UOPZ_PATH\"" >> "./bin/php5/bin/php.ini"
-				#echo "zend_extension=\"$OPCACHE_PATH\"" >> "./bin/php5/bin/php.ini"
+				#echo "zend_extension=\"$UOPZ_PATH\"" >> "./bin/php7/bin/php.ini"
+				#echo "zend_extension=\"$OPCACHE_PATH\"" >> "./bin/php7/bin/php.ini"
 				if [ "$XDEBUG" == "on" ]; then
-					echo "zend_extension=\"$XDEBUG_PATH\"" >> "./bin/php5/bin/php.ini"
+					echo "zend_extension=\"$XDEBUG_PATH\"" >> "./bin/php7/bin/php.ini"
 				fi
-				echo "opcache.enable=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.enable_cli=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.save_comments=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.load_comments=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.fast_shutdown=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.max_accelerated_files=4096" >> "./bin/php5/bin/php.ini"
-				echo "opcache.interned_strings_buffer=8" >> "./bin/php5/bin/php.ini"
-				echo "opcache.memory_consumption=128" >> "./bin/php5/bin/php.ini"
-				echo "opcache.optimization_level=0xffffffff" >> "./bin/php5/bin/php.ini"
-				echo "date.timezone=$TIMEZONE" >> "./bin/php5/bin/php.ini"
-				echo "short_open_tag=0" >> "./bin/php5/bin/php.ini"
-				echo "asp_tags=0" >> "./bin/php5/bin/php.ini"
-				echo "phar.readonly=0" >> "./bin/php5/bin/php.ini"
-				echo "phar.require_hash=1" >> "./bin/php5/bin/php.ini"
+				echo "opcache.enable=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.enable_cli=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.save_comments=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.load_comments=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.fast_shutdown=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.max_accelerated_files=4096" >> "./bin/php7/bin/php.ini"
+				echo "opcache.interned_strings_buffer=8" >> "./bin/php7/bin/php.ini"
+				echo "opcache.memory_consumption=128" >> "./bin/php7/bin/php.ini"
+				echo "opcache.optimization_level=0xffffffff" >> "./bin/php7/bin/php.ini"
+				echo "date.timezone=$TIMEZONE" >> "./bin/php7/bin/php.ini"
+				echo "short_open_tag=0" >> "./bin/php7bin/php.ini"
+				echo "asp_tags=0" >> "./bin/php7/bin/php.ini"
+				echo "phar.readonly=0" >> "./bin/php7/bin/php.ini"
+				echo "phar.require_hash=1" >> "./bin/php7/bin/php.ini"
 				echo " done"
 				alldone=yes
 			else
@@ -353,33 +261,33 @@ else
 			rm -r -f bin/ >> /dev/null 2>&1
 			echo -n "[3/3] ODROID PHP build available, downloading $ODROID_BUILD.tar.gz..."
 			download_file "https://dl.bintray.com/pocketmine/PocketMine/$ODROID_BUILD.tar.gz" | tar -zx > /dev/null 2>&1
-			chmod +x ./bin/php5/bin/*
+			chmod +x ./bin/php7/bin/*
 			echo -n " checking..."
-			if [ "$(./bin/php5/bin/php -r 'echo 1;' 2>/dev/null)" == "1" ]; then
+			if [ "$(./bin/php7/bin/php -r 'echo 1;' 2>/dev/null)" == "1" ]; then
 				echo -n " regenerating php.ini..."
 				#OPCACHE_PATH="$(find $(pwd) -name opcache.so)"
 				XDEBUG_PATH="$(find $(pwd) -name xdebug.so)"
-				echo "" > "./bin/php5/bin/php.ini"
+				echo "" > "./bin/php7/bin/php.ini"
 				#UOPZ_PATH="$(find $(pwd) -name uopz.so)"
-				#echo "zend_extension=\"$UOPZ_PATH\"" >> "./bin/php5/bin/php.ini"
-				#echo "zend_extension=\"$OPCACHE_PATH\"" >> "./bin/php5/bin/php.ini"
+				#echo "zend_extension=\"$UOPZ_PATH\"" >> "./bin/php7/bin/php.ini"
+				#echo "zend_extension=\"$OPCACHE_PATH\"" >> "./bin/php7/bin/php.ini"
 				if [ "$XDEBUG" == "on" ]; then
-					echo "zend_extension=\"$XDEBUG_PATH\"" >> "./bin/php5/bin/php.ini"
+					echo "zend_extension=\"$XDEBUG_PATH\"" >> "./bin/php7/bin/php.ini"
 				fi
-				echo "opcache.enable=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.enable_cli=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.save_comments=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.load_comments=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.fast_shutdown=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.max_accelerated_files=4096" >> "./bin/php5/bin/php.ini"
-				echo "opcache.interned_strings_buffer=8" >> "./bin/php5/bin/php.ini"
-				echo "opcache.memory_consumption=128" >> "./bin/php5/bin/php.ini"
-				echo "opcache.optimization_level=0xffffffff" >> "./bin/php5/bin/php.ini"
-				echo "date.timezone=$TIMEZONE" >> "./bin/php5/bin/php.ini"
-				echo "short_open_tag=0" >> "./bin/php5/bin/php.ini"
-				echo "asp_tags=0" >> "./bin/php5/bin/php.ini"
-				echo "phar.readonly=0" >> "./bin/php5/bin/php.ini"
-				echo "phar.require_hash=1" >> "./bin/php5/bin/php.ini"
+				echo "opcache.enable=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.enable_cli=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.save_comments=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.load_comments=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.fast_shutdown=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.max_accelerated_files=4096" >> "./bin/php7/bin/php.ini"
+				echo "opcache.interned_strings_buffer=8" >> "./bin/php7/bin/php.ini"
+				echo "opcache.memory_consumption=128" >> "./bin/php7/bin/php.ini"
+				echo "opcache.optimization_level=0xffffffff" >> "./bin/php7/bin/php.ini"
+				echo "date.timezone=$TIMEZONE" >> "./bin/php7/bin/php.ini"
+				echo "short_open_tag=0" >> "./bin/php7/bin/php.ini"
+				echo "asp_tags=0" >> "./bin/php7/bin/php.ini"
+				echo "phar.readonly=0" >> "./bin/php7/bin/php.ini"
+				echo "phar.require_hash=1" >> "./bin/php7/bin/php.ini"
 				echo " done"
 				alldone=yes
 			else
@@ -407,32 +315,32 @@ else
 			fi
 			
 			download_file "https://dl.bintray.com/pocketmine/PocketMine/$LINUX_BUILD.tar.gz" | tar -zx > /dev/null 2>&1
-			chmod +x ./bin/php5/bin/*
+			chmod +x ./bin/php7/bin/*
 			echo -n " checking..."
-			if [ "$(./bin/php5/bin/php -r 'echo 1;' 2>/dev/null)" == "1" ]; then
+			if [ "$(./bin/php7/bin/php -r 'echo 1;' 2>/dev/null)" == "1" ]; then
 				echo -n " regenerating php.ini..."
 				#OPCACHE_PATH="$(find $(pwd) -name opcache.so)"
 				XDEBUG_PATH="$(find $(pwd) -name xdebug.so)"
-				echo "" > "./bin/php5/bin/php.ini"
+				echo "" > "./bin/php7/bin/php.ini"
 				#UOPZ_PATH="$(find $(pwd) -name uopz.so)"
-				#echo "zend_extension=\"$UOPZ_PATH\"" >> "./bin/php5/bin/php.ini"
-				#echo "zend_extension=\"$OPCACHE_PATH\"" >> "./bin/php5/bin/php.ini"
+				#echo "zend_extension=\"$UOPZ_PATH\"" >> "./bin/php7/bin/php.ini"
+				#echo "zend_extension=\"$OPCACHE_PATH\"" >> "./bin/php7/bin/php.ini"
 				if [ "$XDEBUG" == "on" ]; then
-					echo "zend_extension=\"$XDEBUG_PATH\"" >> "./bin/php5/bin/php.ini"
+					echo "zend_extension=\"$XDEBUG_PATH\"" >> "./bin/php7/bin/php.ini"
 				fi
-				echo "opcache.enable=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.enable_cli=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.save_comments=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.fast_shutdown=1" >> "./bin/php5/bin/php.ini"
-				echo "opcache.max_accelerated_files=4096" >> "./bin/php5/bin/php.ini"
-				echo "opcache.interned_strings_buffer=8" >> "./bin/php5/bin/php.ini"
-				echo "opcache.memory_consumption=128" >> "./bin/php5/bin/php.ini"
-				echo "opcache.optimization_level=0xffffffff" >> "./bin/php5/bin/php.ini"
-				echo "date.timezone=$TIMEZONE" >> "./bin/php5/bin/php.ini"
-				echo "short_open_tag=0" >> "./bin/php5/bin/php.ini"
-				echo "asp_tags=0" >> "./bin/php5/bin/php.ini"
-				echo "phar.readonly=0" >> "./bin/php5/bin/php.ini"
-				echo "phar.require_hash=1" >> "./bin/php5/bin/php.ini"
+				echo "opcache.enable=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.enable_cli=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.save_comments=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.fast_shutdown=1" >> "./bin/php7/bin/php.ini"
+				echo "opcache.max_accelerated_files=4096" >> "./bin/php7/bin/php.ini"
+				echo "opcache.interned_strings_buffer=8" >> "./bin/php7/bin/php.ini"
+				echo "opcache.memory_consumption=128" >> "./bin/php7/bin/php.ini"
+				echo "opcache.optimization_level=0xffffffff" >> "./bin/php7/bin/php.ini"
+				echo "date.timezone=$TIMEZONE" >> "./bin/php7/bin/php.ini"
+				echo "short_open_tag=0" >> "./bin/php7/bin/php.ini"
+				echo "asp_tags=0" >> "./bin/php7/bin/php.ini"
+				echo "phar.readonly=0" >> "./bin/php7/bin/php.ini"
+				echo "phar.require_hash=1" >> "./bin/php7/bin/php.ini"
 				echo " done"
 				alldone=yes
 			else
