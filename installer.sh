@@ -17,9 +17,9 @@ IOS_BUILD="PHP_5.5.13_ARMv6_iOS"
 update=off
 forcecompile=off
 alldone=no
-checkRoot=on
+checkRoot=off
 XDEBUG="off"
-alternateurl=on
+alternateurl=off
 
 INSTALL_DIRECTORY="./"
 
@@ -78,15 +78,15 @@ else
 			alias download_file="curl --silent --location"
 		fi
 	else
-		echo "error, curl or wget not found"
+		echo "error> cURL or wget not found. Please install either one to continue with the installation."
 	fi
 fi
 
 if [ "$checkRoot" == "on" ]; then
 	if [ "$(id -u)" == "0" ]; then
-	   echo "Please note that you're running the installation as the root user."
-	   echo "It's recommended to run it as a normal user, as it doesn't need further permissions."
-	   echo "If you want to run it as root, add the -r flag when running the command."
+	   echo "warning> Please note that you're running the installation as the root user."
+	   echo "warning> It's recommended to run it as a normal user, as it doesn't need further permissions."
+	   echo "warning> If you want to run it as root, add the -r flag when running the command."
 	   exit 1
 	fi
 fi
@@ -102,6 +102,7 @@ mkdir -m 0777 "$INSTALL_DIRECTORY" 2> /dev/null
 cd "$INSTALL_DIRECTORY"
 echo "[1/3] Cleaning..."
 rm -f "$NAME.phar"
+rm -f PocketMine-MP.phar
 rm -f README.md
 rm -f CONTRIBUTING.md
 rm -f LICENSE
