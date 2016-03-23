@@ -32,6 +32,8 @@ function message() {
   curl -O language/$o.sh https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/language/$o.sh >>./$l 2>>./$le        
   elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
   wget https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/language/$o.sh -O language/$o.sh >>./$l 2>>./$le
+  else
+  wget https://raw.githubusercontent.com/ImagicalMine/php-build-scripts/master/language/$o.sh -O language/$o.sh >>./$l 2>>./$le
   fi
   . language/$o.sh
 }
