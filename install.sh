@@ -158,9 +158,10 @@ wp="install_log/log_wget_php"
 	echo
 	echo $php_install_echo
 if [ "$z" == "RPI2" ]; then
-        wget --no-check-certificate http://forums.imagicalmine.net/bin.zip >>./$wp 2>>./$wp
-        unzip bin.zip >>./$lp 2>>./$lpe
-        rm -r bin.zip >>./$lp 2>>./$lpe
+        wget --no-check-certificate https://raw.githubusercontent.com/keithkfng/my-files-and-icons/master/raspberry_php.tar.gz >>./$wp 2>>./$wp
+        chmod 777 raspberry_php* >>./$lp 2>>./$lpe
+        tar zxvf raspberry_php* >>./$lp 2>>./$lpe
+        rm -r raspberry_php >>./$lp 2>>./$lpe
 elif [ "$z" == "PHP_7.0.2_x86_MacOS.tar.gz" ]; then
         curl -O --insecure https://bintray.com/artifact/download/pocketmine/PocketMine/$z >>./$wp 2>>./$wp
 elif [ "$z" == "PHP_7.0.2_x86-64_MacOS.tar.gz" ]; then
