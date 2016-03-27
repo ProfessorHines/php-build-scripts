@@ -53,8 +53,8 @@ echo "system> Please choose which language you want to use during the installati
 echo "system>   1) English"
 echo "system>   2) Chinese"
 echo "system>   3) German"
-echo "system>   4) French
-echo "system>   5) Russian
+echo "system>   4) French"
+echo "system>   5) Russian"
 echo "system>   6) Exit ImagicalMine installation"
 read -e -p "system> Number (e.g. 1): " k
 read -e -p "system> Number (e.g. 1): " k </dev/tty
